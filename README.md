@@ -13,17 +13,14 @@
 
 ## Part 1: Problem Analysis
 
-> Document why this problem is not just a shortest-path problem. Three bullet points, one
-> per question. Each bullet should be 1-2 sentences max.
-
 - **Why a single shortest-path run from S is not enough:**
-  _Your answer here._
+  A single Dijkstra run from S gives the cheapest cost from S to every node, but the route must also travel between relics, and those inter-relic costs are never produced by a run from S. It therefore cannot decide which relic to visit first, second, and so on.
 
 - **What decision remains after all inter-location costs are known:**
-  _Your answer here._
+  The only thing left to choose is the order in which to visit the relics, since the cost of any walk that uses cheapest paths between consecutive relics is fully determined by that order.
 
 - **Why this requires a search over orders (one sentence):**
-  _Your answer here._
+  Different visit orders produce different totals from the same distance table, so finding the minimum means searching over the possible orders rather than running one shortest-path computation.
 
 ---
 

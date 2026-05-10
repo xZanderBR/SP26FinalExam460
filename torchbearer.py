@@ -31,10 +31,19 @@ def explain_problem():
     str
         Your Part 1 README answers, written as a string.
         Must match what you wrote in README Part 1.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "A single Dijkstra run from S gives the cheapest cost from S to every "
+        "node, but the route must also travel between relics, and those "
+        "inter-relic costs are never produced by a run from S. It therefore "
+        "cannot decide which relic to visit first, second, and so on.\n\n"
+        "The only thing left to choose is the order in which to visit the "
+        "relics, since the cost of any walk that uses cheapest paths between "
+        "consecutive relics is fully determined by that order.\n\n"
+        "Different visit orders produce different totals from the same "
+        "distance table, so finding the minimum means searching over the "
+        "possible orders rather than running one shortest-path computation."
+    )
 
 
 # =============================================================================
