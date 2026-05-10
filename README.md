@@ -28,33 +28,27 @@
 
 ### Part 2a: Source Selection
 
-> List the source node types as a bullet list. For each, one-line reason.
-
 | Source Node Type | Why it is a source |
 |---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| Spawn node `S` | The route starts at `S`, so the search needs the cheapest cost from `S` to every relic. |
+| Each relic node `R` in `M` | After collecting a relic the search departs from it to either another relic or the exit, so it needs the cheapest cost from each relic to every other relic and to the exit. |
 
 ### Part 2b: Distance Storage
 
-> Fill in the table. No prose required.
-
 | Property | Your answer |
 |---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Data structure name | Nested Python `dict` (`dict[node, dict[node, float]]`) |
+| What the keys represent | Outer key is the source node; inner key is the destination node. |
+| What the values represent | Cheapest total edge-weight cost from the source to the destination, or `float('inf')` if unreachable. |
+| Lookup time complexity | O(1) for `dist_table[u][v]` |
+| Why O(1) lookup is possible | Both levels are hash-based dicts, so each key access is expected O(1) and the two chained lookups remain O(1). |
 
 ### Part 2c: Precomputation Complexity
 
-> State the total complexity and show the arithmetic. Two to three lines max.
-
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** `k + 1` (one from spawn `S`, one from each of the `k` relics).
+- **Cost per run:** `O(m log n)` using a binary-heap priority queue.
+- **Total complexity:** `O((k + 1) * m log n) = O(k * m log n)`.
+- **Justification (one line):** Each source's run is independent, so the total is the sum of `k + 1` runs of cost `O(m log n)` each.
 
 ---
 
