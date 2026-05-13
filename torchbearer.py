@@ -168,10 +168,26 @@ def explain_search():
     str
         Your Part 4 README answers, written as a string.
         Must match what you wrote in README Part 4.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "Greedy picks the next relic with the smallest direct cost from the "
+        "current location, without considering how that choice constrains "
+        "the rest of the trip. A locally cheap step can force an expensive "
+        "move later, so greedy can miss the optimal total.\n\n"
+        "Spawn S, relics A and B, exit T. Pairwise costs: d(S, A) = 1, "
+        "d(S, B) = 2, d(A, B) = 100, d(B, A) = 1, d(A, T) = 1, "
+        "d(B, T) = 1.\n\n"
+        "From S greedy takes A because d(S, A) = 1 is cheaper than "
+        "d(S, B) = 2. From A the only remaining relic is B, costing 100. "
+        "From B it goes to T for 1. Total: 1 + 100 + 1 = 102.\n\n"
+        "The order S -> B -> A -> T costs 2 + 1 + 1 = 4.\n\n"
+        "Choosing the cheap first step S -> A forces the route to use the "
+        "expensive A -> B edge instead of the cheap B -> A edge, so the "
+        "1-fuel saving up front costs 98 fuel later.\n\n"
+        "The algorithm must explore every possible order in which the "
+        "relics can be visited, evaluate each order's total cost using the "
+        "precomputed distance table, and keep the minimum."
+    )
 
 
 # =============================================================================

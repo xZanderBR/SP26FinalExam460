@@ -83,20 +83,15 @@ The search picks each step by reading `dist_table[u][v]`, so if any of those val
 
 ### Why Greedy Fails
 
-> State the failure mode. Then give a concrete counter-example using specific node names
-> or costs (you may use the illustration example from the spec). Three to five bullets.
-
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** Greedy picks the next relic with the smallest direct cost from the current location, without considering how that choice constrains the rest of the trip. A locally cheap step can force an expensive move later, so greedy can miss the optimal total.
+- **Counter-example setup:** Spawn `S`, relics `A` and `B`, exit `T`. Pairwise costs: `d(S, A) = 1`, `d(S, B) = 2`, `d(A, B) = 100`, `d(B, A) = 1`, `d(A, T) = 1`, `d(B, T) = 1`.
+- **What greedy picks:** From `S` greedy takes `A` because `d(S, A) = 1` is cheaper than `d(S, B) = 2`. From `A` the only remaining relic is `B`, costing 100. From `B` it goes to `T` for 1. Total: `1 + 100 + 1 = 102`.
+- **What optimal picks:** The order `S → B → A → T` costs `2 + 1 + 1 = 4`.
+- **Why greedy loses:** Choosing the cheap first step `S → A` forces the route to use the expensive `A → B` edge instead of the cheap `B → A` edge, so the 1-fuel saving up front costs 98 fuel later.
 
 ### What the Algorithm Must Explore
 
-> One bullet. Must use the word "order."
-
-- _Your answer here._
+- The algorithm must explore every possible order in which the relics can be visited, evaluate each order's total cost using the precomputed distance table, and keep the minimum.
 
 ---
 
