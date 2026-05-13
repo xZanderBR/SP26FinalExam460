@@ -24,12 +24,9 @@ optimal costs.
 
 ---
 
-## Entry 2 – [Date]: [Short description]
+## Entry 2 – 05-12-2026: Wrong assumption about source selection
 
-> Required. At least one entry must describe a bug, wrong assumption, or design change
-> you encountered. Describe what went wrong and how you resolved it.
-
-_Your entry here._
+I first wrote `select_sources` to include the exit node, because my intuition was that every named node we care about should be a Dijkstra source. Going back over the design for Part 2a I realized the exit is only ever a destination (the route never departs from it), so running Dijkstra from the exit would waste an entire run with no entry in `dist_table` that the search would ever read. I removed `exit_node` from `select_sources` and confirmed the table still contains every lookup the search needs: spawn-to-anywhere and relic-to-anywhere, where "anywhere" already includes the exit as an inner-dict key.
 
 ---
 
