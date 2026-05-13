@@ -54,38 +54,28 @@
 
 ## Part 3: Algorithm Correctness
 
-> Document your understanding of why Dijkstra produces correct distances.
-> Bullet points and short sentences throughout. No paragraphs.
-
 ### Part 3a: Invariant Explanation
 
-> Two bullets: one for finalized nodes, one for non-finalized nodes.
-> Do not copy the invariant text from the spec.
-
 - **For nodes already finalized (in S):**
-  _Your answer here._
+  `dist[v]` is locked in as the true cheapest cost from `x` to `v`, and no later relaxation can lower it.
 
 - **For nodes not yet finalized (not in S):**
-  _Your answer here._
+  `dist[u]` is the cheapest cost found so far for a path from `x` to `u` whose intermediate stops are all already finalized, and it acts as an upper bound that may still drop as more nodes are finalized.
 
 ### Part 3b: Invariant Maintenance
 
-> One to two bullets per phase. Maintenance must mention nonnegative edge weights.
-
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  Initially `S` is empty, so the finalized-node clause has nothing to check. Setting `dist[x] = 0` with every other `dist[u] = inf` is correct because the only path discovered so far is the zero-length path from `x` to itself.
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
+  The next node added is the non-finalized `u` with the smallest `dist[u]`. Any alternative path from `x` to `u` must first leave `S` at some vertex `w`, and that prefix keeps its interior in `S`, so by the non-finalized clause its cost is at least `dist[w] >= dist[u]`. Because every edge weight is nonnegative, the rest of that path from `w` to `u` only adds cost, so the alternative cannot beat `dist[u]`.
 
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  When the loop exits every reachable node is in `S`, so every reachable `dist[v]` equals the true shortest-path distance from `x`, and unreachable nodes keep `dist = inf`.
 
 ### Part 3c: Why Correctness Matters
 
-> One sentence connecting correct distances to correct routing decisions.
-
-_Your answer here._
+The search picks each step by reading `dist_table[u][v]`, so if any of those values is wrong the planner can pick a worse relic order or wrongly reject a valid route, and the final fuel cost will not be optimal.
 
 ---
 

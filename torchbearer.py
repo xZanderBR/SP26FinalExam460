@@ -129,10 +129,32 @@ def dijkstra_invariant_check():
     str
         Your Part 3 README answers, written as a string.
         Must match what you wrote in README Part 3.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "dist[v] is locked in as the true cheapest cost from x to v, and no "
+        "later relaxation can lower it.\n\n"
+        "dist[u] is the cheapest cost found so far for a path from x to u "
+        "whose intermediate stops are all already finalized, and it acts as "
+        "an upper bound that may still drop as more nodes are finalized.\n\n"
+        "Initially S is empty, so the finalized-node clause has nothing to "
+        "check. Setting dist[x] = 0 with every other dist[u] = inf is "
+        "correct because the only path discovered so far is the zero-length "
+        "path from x to itself.\n\n"
+        "The next node added is the non-finalized u with the smallest "
+        "dist[u]. Any alternative path from x to u must first leave S at "
+        "some vertex w, and that prefix keeps its interior in S, so by the "
+        "non-finalized clause its cost is at least dist[w] >= dist[u]. "
+        "Because every edge weight is nonnegative, the rest of that path "
+        "from w to u only adds cost, so the alternative cannot beat "
+        "dist[u].\n\n"
+        "When the loop exits every reachable node is in S, so every "
+        "reachable dist[v] equals the true shortest-path distance from x, "
+        "and unreachable nodes keep dist = inf.\n\n"
+        "The search picks each step by reading dist_table[u][v], so if any "
+        "of those values is wrong the planner can pick a worse relic order "
+        "or wrongly reject a valid route, and the final fuel cost will not "
+        "be optimal."
+    )
 
 
 # =============================================================================
