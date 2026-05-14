@@ -126,25 +126,19 @@ The search picks each step by reading `dist_table[u][v]`, so if any of those val
 
 ### Part 6a: Best-So-Far Tracking
 
-> Three bullets.
-
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** The smallest complete-route cost found so far, stored in the mutable `best` container. It is initialized to `float('inf')` and updated whenever the search reaches the exit with all relics collected at a smaller total.
+- **When it is used:** At the top of every recursive call to `_explore`, before extending the search to any uncollected relic.
+- **What it allows the algorithm to skip:** Any branch whose `cost_so_far + lower_bound >= best[0]` is abandoned immediately without recursing, since no completion of that branch can improve the current best.
 
 ### Part 6b: Lower Bound Estimation
 
-> Three bullets.
-
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** `current_loc`, the set of uncollected relics in `relics_remaining`, the running `cost_so_far`, and the precomputed `dist_table` for O(1) cost lookups.
+- **What the lower bound accounts for:** The cheapest cost from `current_loc` to `exit_node`, read directly from `dist_table[current_loc][exit_node]`. This is the unavoidable cost of eventually reaching the exit, no matter which relics still need to be collected.
+- **Why it never overestimates:** The route must eventually finish at `exit_node`, and by Dijkstra correctness `dist_table[current_loc][exit_node]` is the cheapest possible cost to get there from the current location. Any completion of this branch only adds nonnegative cost on top, so the bound never exceeds the true remaining cost.
 
 ### Part 6c: Pruning Correctness
 
-> One to two bullets. Explain why pruning is safe.
-
-- _Your answer here._
+- The lower bound is never larger than the true remaining cost to finish this branch, so `cost_so_far + lower_bound` is a lower bound on the final cost of every completion of the branch. If that lower bound already meets or exceeds `best[0]`, every completion will also meet or exceed `best[0]`, so abandoning the branch cannot discard a route that beats the current best.
 
 ---
 
