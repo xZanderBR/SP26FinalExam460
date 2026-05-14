@@ -4,17 +4,6 @@ The Torchbearer
 
 Student Name: Zander Barajas
 Student ID:   826847977
-
-INSTRUCTIONS
-------------
-- Implement every function marked TODO.
-- Do not change any function signature.
-- Do not remove or rename required functions.
-- You may add helper functions.
-- Variable names in your code must match what you define in README Part 5a.
-- The pruning safety comment inside _explore() is graded. Do not skip it.
-
-Submit this file as: torchbearer.py
 """
 
 import heapq

@@ -4,11 +4,6 @@
 **Student ID:** 826847977
 **Course:** CS 460 – Algorithms | Spring 2026
 
-> This README is your project documentation. Write it the way a developer would document
-> their design decisions , bullet points, brief justifications, and concrete examples where
-> required. You are not writing an essay. You are explaining what you built and why you built
-> it that way. Delete all blockquotes like this one before submitting.
-
 ---
 
 ## Part 1: Problem Analysis
@@ -144,6 +139,4 @@ The search picks each step by reading `dist_table[u][v]`, so if any of those val
 
 ## References
 
-> Bullet list. If none beyond lecture notes, write that.
-
-- _Your references here._
+- Lecture notes only. All material drawn from CS 460 lecture slides and course notes.
