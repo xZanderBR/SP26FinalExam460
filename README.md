@@ -99,33 +99,26 @@ The search picks each step by reading `dist_table[u][v]`, so if any of those val
 
 ### Part 5a: State Representation
 
-> Document the three components of your search state as a table.
-> Variable names here must match exactly what you use in torchbearer.py.
-
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location | `current_loc` | node (graph key, typically `str`) | The vertex where the Torchbearer currently stands. |
+| Relics already collected | `relics_visited_order` | `list[node]` | Ordered list of relics collected on the current branch; appended when a relic is picked up and popped on backtrack. |
+| Fuel cost so far | `cost_so_far` | `float` | Sum of edge weights along the path taken from spawn to `current_loc`. |
 
 ### Part 5b: Data Structure for Visited Relics
 
-> Fill in the table.
-
 | Property | Your answer |
 |---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Data structure chosen | Python `set` (held in `relics_remaining`, the still-uncollected relics). |
+| Operation: check if relic already collected | Time complexity: O(1) (`relic not in relics_remaining`). |
+| Operation: mark a relic as collected | Time complexity: O(1) (`relics_remaining.discard(relic)`). |
+| Operation: unmark a relic (backtrack) | Time complexity: O(1) (`relics_remaining.add(relic)`). |
+| Why this structure fits | A hash-based set gives expected O(1) membership, removal, and insertion, and the mutate-then-restore pattern fits DFS backtracking without copying the structure at each call. |
 
 ### Part 5c: Worst-Case Search Space
 
-> Two bullets.
-
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** `O(k!)` where `k = |M|`.
+- **Why:** Without pruning the search must try every permutation of the `k` relics, since any order could in principle be the optimal one.
 
 ---
 
