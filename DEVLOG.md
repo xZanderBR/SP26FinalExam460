@@ -30,9 +30,9 @@ I first wrote `select_sources` to include the exit node, because my intuition wa
 
 ---
 
-## Entry 3 – [Date]: [Short description]
+## Entry 3 – 05-13-2026: State design split across two variables
 
-_Your entry here._
+For Part 5 I had to commit to a representation for the relics already collected, and the search needs two different views of that information: an ordered list to return as the final answer, and a fast-membership structure for backtracking inside the DFS. Picking only one would hurt: a list alone makes membership O(k) per check, and a set alone loses the visit order. I kept both. `relics_visited_order` is a list that I append to on collect and pop on backtrack, and `relics_remaining` is a set of still-uncollected relics that gives O(1) membership, removal, and re-insertion. I am holding off on writing `find_optimal_route` and `_explore` until Part 6 is locked, since the prune logic lives inside `_explore` and one pass avoids a rewrite.
 
 ---
 
